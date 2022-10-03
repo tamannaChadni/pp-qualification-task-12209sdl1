@@ -24,9 +24,9 @@
             <div class="row mt-3">
                 <div class="col-8">
                     <div class="icheck-primary">
-                        <input type="checkbox" id="remember">
+                        <input type="checkbox" id="remember" name="remember">
                         <label for="remember">
-                            Remember Me
+                            Keep me sign in
                         </label>
                     </div>
                 </div>
@@ -61,11 +61,13 @@
             $.ajax({
                 type: 'POST',
                 url: "{{ url('login') }}",
+                dataType: "JSON",
                 data: data,
                 success: function(data) {
                     $('#login-form .error').text('');
+                    if (data.status == true) window.location.href = data.redirect;
                     if (data.status == 'failed') {
-                        toast('error', data.message);
+                        // toast('error', data.message);
                     }
                 },
                 error: function(data) {

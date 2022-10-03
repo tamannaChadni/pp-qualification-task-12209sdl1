@@ -24,7 +24,7 @@ class RegisterController extends Controller
             return [
                 'success' => true,
                 'message' =>  'You have successfully Resisterd!',  
-                'redirect' => 'dashboard'
+                'redirect' => url('login')
             ];
         }
     }
