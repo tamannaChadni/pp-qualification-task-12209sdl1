@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,16 +17,21 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
-
-        $request->session()->put('id', 'user_id');
-        dd( $request->session()->put('user_id', $request));
-
-
         $credentials = $request->only('email', 'password');
         // dd($credentials);
         $remember = $request->input('remember');
         // dd($remember);
-        if (Auth::attempt($credentials,$remember)) {
+        if (Auth::attempt($credentials, $remember)) {
+            $user = User::where('email', $credentials['email'])->first();
+            $data = [
+                'id', $request->input('id'),
+                'user_id ', $user->id,
+                'ip_address ', $request->input('ip_address'),
+                'user_agent ', $request->input('user_agent'),
+                'payload ', $request->input('payload'),
+                'last_activity  ', $request->input('last_activity'),
+            ];
+            $request->session()->put($data);
             // return redirect()->intended('personal-account');
             return [
                 'status' => true,
