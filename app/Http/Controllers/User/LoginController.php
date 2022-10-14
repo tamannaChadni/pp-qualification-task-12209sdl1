@@ -6,9 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 
 class LoginController extends Controller
 {
+
+    public function formLogin()
+    {
+        $key = "login.".request()->ip();
+        return view('login',[
+            'key'=>$key,
+            'retries'=>RateLimiter::retriesLeft($key, 5),
+            'seconds'=>RateLimiter::availableIn($key),
+
+        ]);
+
+        $userKey = "login.".request()->email();
+        return view('login',[
+            
+            'userKey'=>$userKey,
+            'retries'=>RateLimiter::retriesLeft($userKey, 2),
+            'seconds'=>RateLimiter::availableIn($userKey),
+        ]);
+    }
+
+
+
     public function store(Request $request)
     {
         // dd($request->all());
@@ -33,10 +56,13 @@ class LoginController extends Controller
             ];
             $request->session()->put($data);
             // return redirect()->intended('personal-account');
+            RateLimiter::clear("login.".$request->ip());
+            RateLimiter::clear("login.".$request->email);
+
             return [
                 'status' => true,
                 'message' => 'You have successfully logged in!',
-                'redirect' => url('personal-account')
+                'redirect' => url('transcation')
             ];
         } else {
             return [

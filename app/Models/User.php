@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'remember_token',
+        'account_type',
     ];
 
     /**
@@ -42,4 +43,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function account()
+    {
+        return $this->hasOne(Account::class);
+    }
+    public function transcation()
+    {
+        return $this->hasOne(Transcation::class);
+    }
 }

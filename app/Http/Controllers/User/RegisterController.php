@@ -16,6 +16,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
+            'account_type' => 'required',
         ]);
 
         $user = User::create(array_merge($request->all(), ['password' => Hash::make($request->password)]));

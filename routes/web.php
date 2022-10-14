@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\TranscationController;
 use App\Http\Controllers\User\AgentAccountController;
 use App\Http\Controllers\User\LoginController;
 use App\Http\Controllers\User\PersonalAccountController;
@@ -20,12 +22,17 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('auth.register');
 // });
-Route::view('login', 'auth.login');
-Route::view('register', 'auth.register');
+Route::view('login', 'auth.login')->name('login');;
+Route::view('/register', 'auth.register');
 Route::post('register', [RegisterController::class, 'store']);
 Route::post('login', [LoginController::class, 'store']);
-Route::any('personal-account', [PersonalAccountController::class, 'index']);
-Route::any('agent-account', [AgentAccountController::class, 'index']);
-Route::get('logout', [LoginController::class, 'logout']);
+// Route::post('login', [LoginController::class, 'store'])->middleware("throttle:login");
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('transcation', [TranscationController::class, 'index']);
+    Route::post('transcation', [TranscationController::class, 'store']);
+    Route::get('account-details', [AccountController::class, 'index']);
+    Route::post('account-details', [AccountController::class, 'store']);
+    Route::get('logout', [LoginController::class, 'logout']);
+});

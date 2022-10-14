@@ -67,7 +67,7 @@
                     $('#login-form .error').text('');
                     if (data.status == true) window.location.href = data.redirect;
                     if (data.status == 'failed') {
-                        // toast('error', data.message);
+                        toastr.error(data.message, 'ERROR');
                     }
                 },
                 error: function(data) {

@@ -31,12 +31,15 @@
             </div>
             <div class="row mt-3">
                 <div class="col-8">
-                    <div class="icheck-primary">
-                        <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                        <label for="agreeTerms">
-                            I agree to the <a href="#">terms</a>
-                        </label>
-                    </div>
+                    <div class="form-group">
+                        
+                        <select class="custom-select rounded-0" name="account_type">
+                          <option>Account Type</option>
+                          <option value="0">Personal Account</option>
+                          <option value="1">Agent Account</option>
+                        </select>
+                      </div>
+                   
                 </div>
                 <!-- /.col -->
                 <div class="col-4">
@@ -67,9 +70,9 @@
                 data: data,
                 success: function(data) {
                     $('#register-form .error').text('');
-                    toast('success', data.message);
+                    toastr.success('success', data.message);
                     setTimeout(() => {
-                        window.location.href = "{{ url('login') }}"
+                        window.location.href = data.redirect
                     }, 3000);
                 },
                 error: function(data) {

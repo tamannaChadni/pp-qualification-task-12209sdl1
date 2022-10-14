@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title')</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -11,6 +12,8 @@
   <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/toaster/toastr.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/plugins/toaster/toastr.css')}}">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -163,7 +166,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Personal Acoount information</h1>
+            <h1>Mini Wallet</h1>
           </div>
           {{-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -181,7 +184,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Title</h3>
+          {{-- <h3 class="card-title">Title</h3> --}}
 
           <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -196,9 +199,9 @@
           @yield('content') 
         </div>
         <!-- /.card-body -->
-        <div class="card-footer">
+        {{-- <div class="card-footer">
           Footer
-        </div>
+        </div> --}}
         <!-- /.card-footer-->
       </div>
       <!-- /.card -->
@@ -230,7 +233,9 @@
 <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
+<script src="{{asset('assets/plugins/toaster/toastr.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 {{-- <script src="{{ asset('assets/dist/js/demo.js') }}"></script> --}}
+@yield('script')
 </body>
 </html>
