@@ -48,7 +48,7 @@ class TranscationController extends Controller
             if (!($amount > 10 && $amount < 99999.99)) {
                 return [
                     'status' => false,
-                    'message' => 'You are not capable for it!'
+                    'message' => 'The amount is less then 10 or greater than 99999.99!'
                 ];
             }
             $monthlyAttempt = Transcation::where('sender', $sender)->where('created_at', Carbon::now()->addMonth())->where('transcation_type', 'add_money')->count();
