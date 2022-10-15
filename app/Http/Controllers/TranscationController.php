@@ -59,10 +59,45 @@ class TranscationController extends Controller
                     'message' => 'Your Per month add money limit cross!'
                 ];
             }
-
-
-
-        } else {
+        } 
+        
+        // elseif (condition) {
+        //     # code...
+        // }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        else {
             return [
                 'success' => false,
                 'message' => 'Server error please try again after some times',
@@ -71,7 +106,7 @@ class TranscationController extends Controller
 
         $transaction_id = time() . uniqid(mt_rand(), true);
         $data = array_merge($request->all(), ['TXID' => $transaction_id]);
-        $wallet = Transcation::create($data);
+        $wallet = Transcation::create($data, $transcation_type);
         //  dd($wallet);
         if ($wallet) {
             return [
